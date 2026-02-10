@@ -4,26 +4,39 @@ output: html_document
 date: "`r Sys.Date()`"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Renewable Energy dataset
+```{r }
+library(readr)
+energy <- read_csv('../../data/IRENA data.csv', skip=1) 
 ```
 
-## R Markdown
+## Gapminder dataset
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r }
+library(gapminder) 
+library(dplyr) 
+data(gapminder) 
+gapminder %>% head
 ```
 
-## Including Plots
+## Carbon emissions
 
-You can also embed plots, for example:
+```{r }
+library(dplyr)
+library(readr)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+url <- 'https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.csv'
+
+carbon <- read_csv(url) 
+carbon %>% head
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Levelized cost of energy
+
+```{r }
+url <- 'https://raw.githubusercontent.com/ericmkeen/sewanee_esus/master/02_energy_sector/levelized-cost-of-energy.csv'
+econ <- read_csv(url)
+econ %>% head
+```
+
