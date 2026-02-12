@@ -34,9 +34,36 @@ carbon %>% head
 
 ## Levelized cost of energy
 
-```{r }
+```{r}
+library(readr)
+library(dplyr)
 url <- 'https://raw.githubusercontent.com/ericmkeen/sewanee_esus/master/02_energy_sector/levelized-cost-of-energy.csv'
 econ <- read_csv(url)
 econ %>% head
 ```
+### making a plot
+```{r}
+library(ggplot2)
+ggplot(econ, 
+       aes(x=year,
+           y= cost,
+           color=source)) + 
+  geom_point() +
+  geom_hline(yintercept=0.05, lty=2) + 
+  geom_hline(yintercept=0.18, lty=3) +
+  annotate(geom='text',
+           x=1990, y=0.1,
+           size=5,
+           label='Range of fossil\n fuel costs')
 
+
+```
+
+```{r}
+library(knitr)
+econ %>%
+  filter(year == 2020) %>%
+  group_by(source) %>%
+  summarize(cost = mean(cost, na.rm=TRUE)) %>% kable
+
+```
